@@ -9,8 +9,10 @@ class BinaryTree:
 
     def display(self):
         lines, _, _, _ = self._display_aux()
+        print("\n")
         for line in lines:
             print(line)
+        print("\n")
 
     def _display_aux(self):
         """Returns list of strings, width, height, and horizontal coordinate of the root."""
