@@ -2,7 +2,7 @@
 # return the minimum amount of steps to get from index 0 to index size - 1
 
 from random import randint
-from typing import Dict, List
+from typing import List
 
 from data_structures.queue import Queue
 
@@ -15,7 +15,7 @@ def breadth_first_search(graph: List[int], source_vertex: int, target_vertex: in
     vertices_to_visit = Queue()
     vertices_to_visit.enqueue(source_vertex)
 
-    distances = {source_vertex: 0}  # Use this to get number of steps
+    distances = {source_vertex: 0}
 
     while not vertices_to_visit.is_empty():
         current_vertex = vertices_to_visit.dequeue()
