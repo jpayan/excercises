@@ -1,4 +1,3 @@
-from collections import defaultdict
 from math import inf
 
 from data_structures.heap import MinHeap, Node
@@ -7,21 +6,24 @@ from data_structures.queue import Queue
 
 class Graph:
     def __init__(self, directed=True):
-        self._adjacency_list = defaultdict(list)
-        self._directed = directed
+        self.adjacency_list = {}
+        self.directed = directed
 
     def add_vertex(self, vertex):
-        self._adjacency_list.setdefault(vertex, [])
+        self.adjacency_list[vertex] = []
 
     def add_edge(self, from_vertex, to_vertex, weight=1):
-        self._adjacency_list[from_vertex].append((to_vertex, weight))
-        if not self._directed:
-            self._adjacency_list[to_vertex].append((from_vertex, weight))
-        if to_vertex not in self._adjacency_list:
+        if from_vertex not in self.adjacency_list:
+            self.add_vertex(from_vertex)
+        if to_vertex not in self.adjacency_list:
             self.add_vertex(to_vertex)
 
+        self.adjacency_list[from_vertex].append((to_vertex, weight))
+        if not self.directed:
+            self.adjacency_list[to_vertex].append((from_vertex, weight))
+
     def _initialize_visited_set(self):
-        return {vertex: False for vertex in self._adjacency_list}
+        return {vertex: False for vertex in self.adjacency_list}
 
     # Return a path between source_vertex and target_vertex if existent
     def depth_first_search(self, source_vertex, target_vertex):
@@ -35,7 +37,7 @@ class Graph:
         path.append(source_vertex)
         if source_vertex == target_vertex:
             return True
-        for neighbor, _ in self._adjacency_list[source_vertex]:
+        for neighbor, _ in self.adjacency_list[source_vertex]:
             if not visited[neighbor]:
                 if self._dfs_helper(neighbor, target_vertex, visited, path):
                     return True
@@ -55,7 +57,7 @@ class Graph:
             current_vertex = vertices_to_visit.dequeue()
             if current_vertex == target_vertex:
                 break
-            for neighbor, _ in self._adjacency_list[current_vertex]:
+            for neighbor, _ in self.adjacency_list[current_vertex]:
                 if not visited[neighbor]:
                     visited[neighbor] = True
                     history[neighbor] = current_vertex
@@ -72,13 +74,13 @@ class Graph:
         visited = {}
         distances = MinHeap()
 
-        for vertex in self._adjacency_list:
+        for vertex in self.adjacency_list:
             distances.add(Node(vertex, inf))
         distances.update(source_vertex, 0, None)
         
         while not distances.is_empty():
             current_vertex = distances.poll()
-            for neighbor, weight in self._adjacency_list[current_vertex.key]:
+            for neighbor, weight in self.adjacency_list[current_vertex.key]:
                 if neighbor not in visited and neighbor is not current_vertex.key:
                     distance = current_vertex.distance + weight
                     if distance < distances.get(neighbor).distance:

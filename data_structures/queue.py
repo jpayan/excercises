@@ -1,7 +1,7 @@
 from data_structures.linked_list import LinkedList
 
 
-class Queue():
+class Queue:
     def __init__(self):
         self._head = LinkedList(None)
         self._tail = LinkedList(None)

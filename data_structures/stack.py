@@ -1,7 +1,7 @@
 from data_structures.linked_list import LinkedList
 
 
-class Stack():
+class Stack:
     def __init__(self):
         self._head = LinkedList(None)
         self.size = 0
@@ -20,3 +20,11 @@ class Stack():
 
     def peek(self):
         return self._head.next.value
+
+    def __str__(self):
+        items = []
+        current_node = self._head.next
+        while current_node is not None:
+            items.append(current_node.value)
+            current_node = current_node.next
+        return str(items)

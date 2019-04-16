@@ -10,7 +10,7 @@
 # Do both operations in O(1) time
 
 
-class LRUCache(object):
+class LRUCache:
     def __init__(self, capacity):
         self.capacity = capacity
         self.size = 0
