@@ -1,1 +1,1 @@
-# Amazon
+# Daily code challenges
