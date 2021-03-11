@@ -1,0 +1,5 @@
+%SystemDrive%
+.idea
+.vscode
+venv
+__pycache__
